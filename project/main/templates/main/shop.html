@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+  
+    <!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  
+    <!-- 
+      - custom css link
+    -->
+    <link rel="stylesheet" href="{% static 'main/css/main.css'  %}">
+    <link rel="stylesheet" href="{% static 'main/css/home.css'  %}">
+  
+    <!-- 
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet">
+  </head>
+<body>
+  <header class="header" data-header>
+
+    <div class="top-bar">
+      <div class="container">
+        <p>Free shipping for all order of $105. Your Username: {{user}}</p>
+      </div>
+    </div>
+
+    <div class="nav-wrapper">
+      <div class="container">
+
+        <h1 class="h1">
+          <a href="./index.html" class="logo">Organ<span class="span">ica</span></a>
+        </h1>
+
+        <button class="nav-open-btn" aria-label="Open Menu" data-nav-open-btn>
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+        <nav class="navbar" data-navbar>
+
+          <button class="nav-close-btn" aria-label="Close Menu" data-nav-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+          <ul class="navbar-list">
+            <li>
+              <a href="{% url 'home' %}" class="navbar-link">Home</a>
+            </li>
+
+            <li>
+              <a href="{% url 'shop' %}" class="navbar-link">Shop</a>
+            </li> 
+
+            <li>
+              <a href="./shop.html" class="navbar-link">Add Product</a>
+            </li>
+
+          </ul>
+
+        </nav>
+
+        <div class="header-action">
+
+          <div class="search-wrapper" data-search-wrapper>
+
+            <button class="header-action-btn" aria-label="Toggle search" data-search-btn>
+              <ion-icon name="search-outline" class="search-icon"></ion-icon>
+              <ion-icon name="close-outline" class="close-icon"></ion-icon>
+            </button>
+
+            <div class="input-wrapper">
+              <input type="search" name="search" placeholder="Search here" class="search-input">
+
+              <button class="search-submit" aria-label="Submit search">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+            </div>
+
+          </div>
+
+          <button class="header-action-btn" aria-label="Open whishlist" data-panel-btn="whishlist">
+            <ion-icon name="heart-outline"></ion-icon>
+
+            <data class="btn-badge" value="3">03</data>
+          </button>
+
+          <button class="header-action-btn" aria-label="Open shopping cart" data-panel-btn="cart">
+            <ion-icon name="basket-outline"></ion-icon>
+
+            <data class="btn-badge" value="2">02</data>
+          </button>
+
+          <a href="{% url 'logout' %}">Logout</a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </header>
+
+    <section class="section product">
+        <div class="container">
+
+          <p class="section-subtitle"> -- Organic Products --</p>
+
+          <h2 class="h2 section-title">All Products</h2>
+
+          <ul class="filter-list">
+            
+
+          </ul>
+
+          <ul class="grid-list">
+            {% for card in cards %}
+            <li>
+              
+              <div class="product-card" >
+
+                <figure class="card-banner">
+                  <img src="{{card.img_url}}" width="189" height="189" loading="lazy"
+                    alt="Lens Results Spinach">
+                </figure>
+
+                <div class="rating-wrapper">
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                  <ion-icon name="star"></ion-icon>
+                </div>
+
+                <h3 class="h4 card-title">
+                  <a href="./product-details.html">{{card.title}}</a>
+                </h3>
+                <p>{{card.description}}</p>
+                <div class="price-wrapper">
+                  <data class="price" value="{{card.price}}">{{card.price}}</data>
+                </div>
+                {% if card.author == user %} 
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="card_id" value="{{ card.id }}">Delete</button>
+                </form>
+                {% endif %}
+
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+
+        </div>
+      </section>
+      <footer class="footer">
+        <div class="footer-bottom">
+          <div class="container">
+    
+            <p class="copyright">
+              &copy; 2023 by Serjik Harutyunyan
+            </p>
+          </div>
+        </div>
+    
+      </footer>
+
+
+      <script src="{% static 'main/js/script.js' %}" ></script>
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

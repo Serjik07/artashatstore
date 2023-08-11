@@ -1,0 +1,8 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block input %}
+    {% csrf_token %}
+    {{form}}
+{% endblock %}

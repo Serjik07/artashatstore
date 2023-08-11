@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        .container {
+            padding-inline: 25px;
+            background-color: var(--gunmetal-2);
+            padding: 80px 10px;
+            background-image: url(./static/main/images/partner-left-bg.png), url(./static/main/images/partner-right-bg.png);
+            background-repeat: no-repeat, no-repeat;
+            background-position: left bottom, right top;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 40px 130px;
+        }
+        form > input {
+            background-color: var(--white);
+            border: 1px solid black;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        form > button {
+            background-color: var(--emerald);
+            color: var(--white);
+            width: 150px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.5s;
+        }
+        form > span,form > label {
+            text-align: start;
+            color: white;
+        }
+        form > a {
+            color: hsl(152deg 90.95% 29.36%);
+        }
+        .sign_button:hover {
+            background-color: hsl(152deg 90.95% 29.36%);
+        }
+        @media (max-width: 768px) {
+            .sign_button {
+                width: 100px;
+            }
+        }
+        @media (max-width: 569px) {
+            .container > form {
+                padding: 40px 40px;
+             }
+        }
+        
+    </style>
+</head>
+<body>
+    <section class="section newsletter">
+        <div class="container">
+            <form method="post">
+                {% block input %}
+                {% endblock %}
+                <button class="sign_button">Sign up</button>
+            </form>
+        </div>
+      </section>
+</body>
+</html>

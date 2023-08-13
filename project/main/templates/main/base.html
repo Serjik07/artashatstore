@@ -23,11 +23,15 @@
             align-items: flex-start;
             padding: 40px 130px;
         }
-        form > input {
+        form > input,form > textarea {
             background-color: var(--white);
             border: 1px solid black;
             padding: 10px 15px;
             border-radius: 5px;
+        }
+        form > textarea {
+            width: 100%;
+            resize: none;
         }
         form > button {
             background-color: var(--emerald);
@@ -66,7 +70,7 @@
             <form method="post">
                 {% block input %}
                 {% endblock %}
-                <button class="sign_button">Sign up</button>
+                <button class="sign_button">{% block button %}{% endblock %}</button>
             </form>
         </div>
       </section>
